@@ -12,8 +12,8 @@ class UserRepository {
     }
 
     async findAll() {
-        const users = await UserAttribute.find({});
-        return users;
+        const user = await UserAttribute.find({});
+        return user;
     }
 
     async update(id, updates) {
