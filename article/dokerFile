@@ -1,0 +1,13 @@
+FROM node
+
+WORKDIR /app/article
+
+COPY package.json .
+
+RUN yarn install
+
+COPY . .
+
+EXPOSE 4001
+
+CMD ["yarn", "run dev"]
