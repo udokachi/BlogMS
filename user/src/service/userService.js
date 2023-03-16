@@ -74,7 +74,6 @@ const createUser = async (req, res) => {
 
 
   } catch (error) {
-    console.log(">>>>>>>>>>>>>>>>>", error.description, error.stack, error.search)
     console.error(error);
     res.status(400).json({
       status: 'false',
@@ -117,117 +116,6 @@ export const login = async (req, res) => {
 
 
 
-// export const verifyUser = async (req, res) => {
-//   const token = req.header('Authorization').replace('Bearer ', '');
-//   const data = jwt.verify(token, process.env.JWT_KEY);
-//   try {
-//     const user = await UserAttribute.findOne({ _id: data._id, 'tokens.token': token });
-//     if (!user) {
-//       return res.status(401).json({
-//         status: 'false',
-//         message: 'not authorized to access this resource',
-//       });
-//     }
-//     res.status(200).json({ status: 'success', user });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(400).json({
-//       status: 'false',
-//       message: 'not found',
-//     });
-//   }
-// };
-
-
-// export const updateUser = async (req, res) => {
-//   try {
-//     const user = await UserAttribute.findByIdAndUpdate(req.params.id, req.body, {
-//       new: true,
-//       runValidators: true,
-//     });
-//     if (!user) {
-//       return res.status(404).json({
-//         status: 'false',
-//         message: 'invalid user',
-//       });
-//     }
-
-//     const updatedUser = await UserAttribute.findById(req.params.id);
-
-//     const updatedSheet = await googleSheets.spreadsheets.values.update({
-//       auth: googleAuth,
-//       spreadsheetId,
-//       range: 'Sheet1!A:H',
-//       valueInputOption: 'RAW',
-//       resource: {
-//         values: [
-//           [
-//             updatedUser._id,
-//             updatedUser.name,
-//             updatedUser.codeName,
-//             updatedUser.email,
-//             updatedUser.phoneNumber,
-//             updatedUser.gender,
-//             updatedUser.image,
-//             updatedUser.stack,
-//             updatedUser.author
-//           ],
-//         ],
-//       },
-//     });
-//     console.log("updatedSheet is ", updatedSheet)
-
-//     res.status(200).json({
-//       status: 'success',
-//       user: updatedUser,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(400).json({
-//       status: 'false',
-//       message: 'not found',
-//     });
-//   }
-// };
-
-// export const deleteUser = async (req, res) => {
-//   try {
-//     const user = await UserAttribute.findByIdAndDelete(req.params.id);
-//     if (!user) {
-//       return res.status(404).json({
-//         status: 'false',
-//         message: 'invalid user',
-//       });
-//     }
-//     const rows = await googleSheets.spreadsheets.values.get({
-//       auth: googleAuth,
-//       spreadsheetId,
-//       range: 'Sheet1!A:E',
-//     });
-//     const filteredRows = rows.data.values.filter((row) => row[0] !== user._id.toString());
-//     console.log(filteredRows)
-//     const updatedSheet = await googleSheets.spreadsheets.values.update({
-//       auth: googleAuth,
-//       spreadsheetId,
-//       range: 'Sheet1!A:E',
-//       valueInputOption: 'RAW',
-//       resource: {
-//         values: filteredRows,
-//       },
-//     });
-//     console.log("deletedSheet is ", updatedSheet)
-
-//     res.status(204).json({
-//       status: 'success',
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(400).json({
-//       status: 'false',
-//       message: 'not found',
-//     });
-//   }
-// };
 
 
 export const getSingleUser = async (req, res) => {
