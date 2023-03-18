@@ -39,10 +39,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
 
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
+    - name: Check working directory
+      run: ls -al
+
       uses: docker/build-push-action@v2
       with:
         context: .
