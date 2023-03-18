@@ -1,13 +1,17 @@
-FROM node
 
-WORKDIR /app/article
+FROM node:16.13.1-alpine3.14
 
-COPY package.json .
+# WORKDIR /usr/src/index
 
-RUN yarn install
+RUN mkdir -p /usr/v1/src/index/app
+
+WORKDIR /usr/v1/src
+
+
+COPY ["package.json","package-lock.json",".env","./"]
 
 COPY . .
 
-EXPOSE 4001
-
-CMD ["yarn", "run dev"]
+RUN yarn install
+ 
+CMD yarn run dev
