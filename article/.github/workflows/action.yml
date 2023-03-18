@@ -1,5 +1,34 @@
 
-name: NodeJS with Webpack
+# name: NodeJS with Webpack
+
+# on:
+#   push:
+#     branches: [ "new" ]
+#   pull_request:
+#     branches: [ "master" ]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     strategy:
+#       matrix:
+#         node-version: [ 16.x]
+
+#     steps:
+#     - uses: actions/checkout@v3
+
+#     - name: Use Node.js ${{ matrix.node-version }}
+#       uses: actions/setup-node@v3
+#       with:
+#         node-version: ${{ matrix.node-version }}
+
+#     - name: Build
+#       run: |
+#        yarn
+
+name: Node.js CI/CD Pipeline
+
 
 on:
   push:
@@ -11,18 +40,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [ 16.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: username/repo-name:latest
+        dockerfile: Dockerfile
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
 
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - name: Build
+    - uses: actions/checkout@v2
+    - name: Deploy to production
       run: |
-       yarn
+        docker-compose up -d
