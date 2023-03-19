@@ -59,7 +59,7 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: ./article
+        context: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
         push: true
         tags: |
           ${{ env.IMAGE_NAME }}:${{ github.sha }}
