@@ -58,7 +58,7 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: /sytycc-ms2/article
+        context: ./article
         push: true
         tags: |
           ${{ env.IMAGE_NAME }}:${{ github.sha }}
